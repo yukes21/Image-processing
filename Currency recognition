@@ -1,0 +1,783 @@
+import cv2
+
+import numpy as np 
+
+import os
+
+import json 
+
+import requests 
+
+import window
+
+def rec_currency(filename,self):
+
+print("================ Recognizing ================")
+
+currencydata=[
+
+{
+
+"id": 1,
+
+"value": 1,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 2,
+
+"value": 1,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 3,
+
+"value": 1,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 4,
+
+"value": 1,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 5,
+"value": 1,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 6,
+
+"value": 1,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 7,
+
+"value": 5,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 8,
+
+"value": 5,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 9,
+
+"value": 5,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 10,
+
+"value": 5,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 11,
+
+
+"value": 5,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 12,
+
+"value": 5,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 13,
+
+"value": 10,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 14,
+
+"value": 10,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 15,
+
+"value": 10,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 16,
+
+"value": 10,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 17,
+
+"value": 10,
+
+"currency": "Indian Rupee"
+
+},{
+"id": 18,
+
+"value": 20,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 19,
+
+"value": 20,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 20,
+
+"value": 20,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 21,
+
+"value": 20,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 22,
+
+"value": 20,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 23,
+
+"value": 20,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 24,
+
+"value": 20,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 25,
+
+"value": 50,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 26,
+
+"value": 50,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 27,
+
+"value": 50,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 28,
+
+"value": 50,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 29,
+
+"value": 50,
+
+"currency": "Indian Rupee"
+
+
+},{
+
+"id": 30,
+
+"value": 50,
+
+"currency": "Indian Rupee"
+},{
+
+"id": 31,
+
+"value": 50,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 32,
+
+"value": 50,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 33,
+
+"value": 50,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 34,
+
+"value": 100,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 35,
+
+"value": 100,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 36,
+
+"value": 100,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 37,
+
+"value": 100,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 38,
+
+"value": 100,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 39,
+
+"value": 200,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 40,
+
+"value": 500,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 41,
+
+"value": 500,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 42,
+
+"value": 500,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 43,
+
+"value": 500,
+"currency": "Indian Rupee"
+
+},{
+
+"id": 44,
+
+"value": 2000,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 45,
+
+"value": 2000,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 46,
+
+"value": 2000,
+
+"currency": "Indian Rupee"
+
+},{
+
+"id": 47,
+
+"value": 1,
+
+"currency": "American Dollar"
+
+},{
+
+"id": 48,
+
+"value": 1,
+
+"currency": "American Dollar"
+
+},{
+
+"id": 49,
+
+"value": 2,
+
+"currency": "American Dollar"
+
+},{
+
+"id": 50,
+
+"value": 10,
+
+"currency": "American Dollar"
+
+},{
+
+"id": 51,
+
+"value": 5,
+
+"currency": "American Dollar" },{ "id": 
+
+52,
+
+"value": 5,
+
+"currency": "American Dollar"
+
+},{
+
+"id": 53,
+
+"value": 5,
+
+"currency": "American Dollar"
+
+},{
+
+"id": 54,
+
+"value": 10,
+
+"currency": "American Dollar"
+
+},{
+
+"id": 55,
+
+"value": 10,
+
+"currency": "American Dollar"
+
+},{
+
+"id": 56,
+
+"value": 20,
+"currency": "American Dollar"
+
+},{
+
+"id": 57,
+
+"value": 20,
+
+"currency": "American Dollar"
+
+},{
+
+"id": 58,
+
+"value": 20,
+
+"currency": "American Dollar"
+
+},{
+
+"id": 59,
+
+"value": 50,
+
+"currency": "American Dollar"
+
+},{
+
+"id": 60,
+
+"value": 50,
+
+"currency": "American Dollar"
+
+},{
+
+"id": 61,
+
+"value": 50,
+
+"currency": "American Dollar"
+
+},{
+
+"id": 62,
+
+"value": 50,
+
+"currency": "American Dollar"
+
+},{
+
+"id": 63,
+
+"value": 100,
+
+"currency": "American Dollar"
+
+},{
+
+"id": 64,
+
+"value": 100,
+
+"currency": "American Dollar"
+
+},{
+
+"id": 65,
+
+"value": 100,
+
+"currency": "American Dollar"
+
+},{
+
+"id": 66,
+
+"value": 2,
+
+"currency": "American Dollar"
+
+},{
+
+"id": 67,
+
+"value": 10,
+
+"currency": "American Dollar"
+
+},{
+
+"id": 68,
+
+"value": 10,
+
+"currency": "American Dollar"
+
+},{
+
+"id": 69,
+"value": 20,
+
+"currency": "American Dollar"
+
+},{
+
+"id": 70,
+
+"value": 5,
+
+"currency": "American Dollar"
+
+},{
+
+"id": 71,
+
+"value": 1,
+
+"currency": "American Dollar"
+
+},{
+
+"id": 72,
+
+"value": 100,
+
+"currency": "American Dollar"
+
+},{
+
+"id": 73,
+
+"value": 5,
+
+"currency": "American Dollar"
+
+},{
+
+"id": 74,
+
+"value": 5,
+
+"currency": "American Dollar"
+
+},{
+
+"id": 75,
+
+"value": 5,
+
+"currency": "American Dollar"
+
+},{
+
+"id": 76,
+
+"value": 2,
+
+"currency": "American Dollar"
+
+},{
+
+"id": 77,
+
+"value": 100,
+
+"currency": "American Dollar"
+
+},{
+
+"id": 78,
+
+"value": 100,
+
+"currency": "American Dollar"
+
+},{
+
+"id": 79,
+
+"value": 100,
+
+"currency": "American Dollar"
+
+},{
+
+"id": 80,
+
+"value": 1,
+
+"currency": "American Dollar"
+
+},{
+
+
+
+"id": 81,
+
+"value": 1,
+
+"currency": "American Dollar"
+},{
+
+"id": 82,
+
+"value": 1,
+
+"currency": "American Dollar"
+
+},{
+
+"id": 83,
+
+"value": 2,
+
+"currency": "American Dollar"
+
+}
+
+]
+
+img = cv2.imread(filename)
+
+gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) 
+
+temp ="0"
+
+entries = os.listdir("trained_data/") 
+
+for entry in entries:
+
+template = cv2.imread("trained_data/"+entry, cv2.THRESH_BINARY) w, h 
+
+= template.shape[::-1]
+
+result = cv2.matchTemplate(gray_img, template, cv2.TM_CCOEFF_NORMED) loc = 
+
+np.where(result >= 0.4)
+
+for pt in zip(*loc[::-1]):
+
+cv2.rectangle(img, pt, (pt[0] + w, pt[1] + h), (0, 255, 0), 0) 
+
+temp=entry
+
+break
+
+imageid = temp.replace(".jpg","")
+
+print(">>> Recognized with Image Id : " + imageid) 
+
+if imageid is None:
+
+window.windows.error("Sorry Image Not Recognised") 
+
+else:
+
+imageid = int(imageid) - 1
+
+if currencydata[int(imageid)]['currency'] == "Indian Rupee": 
+
+url = "__________" 
+
+response = requests.get(url)
+
+data = response.text 
+
+parsed = json.loads(data) 
+
+date = parsed["date"]
+
+eur_rate = parsed["rates"]["EUR"] 
+
+usd_rate = parsed["rates"]["USD"]
+
+print("Currency Value : " , currencydata[int(imageid)]['value']) 
+
+print("Currency Name : " , currencydata[int(imageid)]['currency'])
+
+print("Currency value In EUR:" , eur_rate * currencydata[int(imageid)]['value'])
+
+print("Currency value In USD:" , usd_rate * currencydata[int(imageid)]['value'] ) 
+
+currvalue = currencydata[int(imageid)]['value']
+
+currname = currencydata[int(imageid)]['currency'] 
+
+curreur = eur_rate * currencydata[int(imageid)]['value'] 
+
+currusd = usd_rate * currencydata[int(imageid)]['value']
+
+window.windows.getind(currvalue, currname, curreur, currusd, self)
+else:
+
+url = "__________" response = requests.get(url)
+
+data = response.text parsed 
+
+= json.loads(data)
+
+eur_rate = parsed["rates"]["EUR"] 
+
+inr_rate = parsed["rates"]["INR"]
+
+print("Currency Value : " , currencydata[int(imageid)]['value']) 
+
+print("Currency Name : " , currencydata[int(imageid)]['currency'])
+
+print("Currency value In EUR:" , currencydata[int(imageid)]['value'] * eur_rate) 
+
+print("Currency value In INR:" , currencydata[int(imageid)]['value'] * inr_rate ) 
+
+currvalue = currencydata[int(imageid)]['value']
+
+currname = currencydata[int(imageid)]['currency'] curreur 
+
+= currencydata[int(imageid)]['value'] * eur_rate currinr = 
+
+currencydata[int(imageid)]['value'] * inr_rate
+
+window.windows.getusd(currvalue, currname, curreur, currinr,self)
+
+
